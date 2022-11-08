@@ -8,7 +8,7 @@ module.exports = {
 	redis_port: '6379',
 	redis_pwd: null, // 没有redis密码则写 null
 	// redis Hash列表名
-	field_lists: 'tempMsg',
+	field_lists: 'tempMsg_',
 	// 单位时间内单个IP可获取最多临时链接数
 	rate_limit: 10,
 	// 用于匹配GUID的正则
