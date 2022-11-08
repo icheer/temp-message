@@ -7,6 +7,14 @@ body {
   display: none;
 }
 
+::-webkit-input-placeholder {
+  color: #ddd !important;
+}
+
+textarea {
+  min-height: 2.4em;
+}
+
 .getbtn {
   padding: 8px 30px;
 }

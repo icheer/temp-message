@@ -23,6 +23,9 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	const output = { status: 0, guid: null };
 	let { text, count = 1, ex } = req.body;
 	text = decodeURIComponent(Buffer.from(text, 'base64').toString());
+	if (text.length > 1500) {
+		text = text.slice(0, 1500);
+	}
 	count = +count;
 	if (!count || !Number.isInteger(count) || count < 1 || count > 10) {
 		count = 1;

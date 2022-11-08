@@ -4,12 +4,13 @@ block content
   <div id="app" v-cloak>
     <div class="row">
       <div class="col-md-10 col-xs-12 col-sm-12">
-        <p> <p class="lead">无需注册的阅后即焚</p>在下面的框框里输入一些内容
-        | <br>然后点一下「生成」按钮，你就会得到一个长的网址
-        | <br>将这个网址发给你的朋友，他只能看一次
-        | 内容就会<b>永远消失</b>！
+        <p>
+          <p class="lead">无需注册的阅后即焚服务</p>
+        | 在下面的框框里输入一些内容<br>
+        | 然后点一下「生成」按钮，你就会得到一个长的网址<br>
+        | 将这个网址发给你的朋友，他只能看一次，内容就会<b>永远消失</b>！
         </p>
-        <textarea v-model="text" rows="6" class="form-control"></textarea>
+        <textarea v-model="text" rows="6" class="form-control" maxlength="1500" placeholder="想要说的话..."></textarea>
         <div class="panel" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; user-select: none;">
           <div class="group" style="display: flex; flex-wrap: nowrap;">
             <label class="form-inline" style="flex: 0 1 auto; font-size: 13px;">
