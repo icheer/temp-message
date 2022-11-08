@@ -4,19 +4,22 @@ app = new Vue({
 	data: {
 		status: -1,
 		text: null,
+		count: null
 	},
-	mounted: function() {
+	mounted: function () {
 		// 从URL获取GUID，然后透过POST获取消息
 		var guid = reg_guid.exec(window.location.href)[0];
-		axios.post('/api/get-msg', {
+		axios.post('/api/read-msg', {
 			guid: guid
 		}).then(function (response) {
 			var data = response.data;
 			app.status = data.status;
-			app.text = data.text;
+			app.text = decodeURIComponent(window.atob(data.text));
+			app.count = data.count - 1;
+			if (app.count < 0) app.count = 0;
 		}).catch(function (error) {
-			throw error;
 			alert('发生错误！')
+			throw error;
 		});
 	}
 });

@@ -5,7 +5,7 @@ modal = new Vue({
 		title: '提示'
 	},
 	methods: {
-		show: function(msg, title) {
+		show: function (msg, title) {
 			if (title) {
 				this.title = title;
 			}
@@ -20,42 +20,47 @@ app = new Vue({
 	el: '#app',
 	data: {
 		text: null,
-		enurl: null,
-		showtg: false,// is show the tugong ICON
-		tgstyle: [],
-	},
-	watch: {
-		showtg: function(status) {
-			status ? this.tgstyle = ['show'] : this.tgstyle = [];
-			if (status) {
-				setTimeout(function() {
-					app.showtg = false;// 显示2秒自动关闭
-				}, 2700);
-			}
-		}
+		count: 1,
+		ex: '1DAY',
+		enurl: null
 	},
 	methods: {
-		getTempURL: function() {
+		countChangeHandler() {
+			const num = ~~app.count;
+			if (!num || num < 1) {
+				app.count = 1;
+			}
+			if (num > 10) {
+				app.count = 10;
+			}
+		},
+		getTempURL: function () {
+			let { text, count, ex } = app;
+			text = (text || '').trim();
+			if (!text) return alert('请输入想说的话');
+			if (count < 1 || count > 10) return alert('查看次数');
+			if (!ex) return alert('失效时间');
 			$("#enurl").loading({
 				message: '加载中...',
-				onStop: function(loading) {
-				    loading.overlay.fadeOut(650)
-				  }
+				onStop: function (loading) {
+					loading.overlay.fadeOut(650)
+				}
 			});
-			axios.post('/api/get-temp', {
-				text: app.text
-			}).then(function(response) {
+			axios.post('/api/create-msg', {
+				text: window.btoa(encodeURIComponent(text)),
+				count,
+				ex
+			}).then(function (response) {
 				$("#enurl").loading('stop');
 				var data = response.data;
-				if (data.status == 1) {
+				if (data.status === 1) {
 					var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
 					app.enurl = newURL + data.guid;
 				} else {
-					throw 'failure to get the tmp url!';
 					modal.show("操作失败！<br>", '错误')
+					throw 'failure to get the tmp url!';
 				}
-				console.log(response);
-			}).catch(function(error) {
+			}).catch(function (error) {
 				console.warn(error.response);
 				$("#enurl").loading('stop');
 				modal.show("操作失败！<br>" + error.response.data.message, '错误')

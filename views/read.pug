@@ -1,0 +1,28 @@
+extends layout
+block content
+	#app
+		<div v-cloak v-if="status==1">
+		pre
+			span {{ text }}
+			div(style="margin-top: 1em; color: darkred") 【{{ count === 0 ? "已燃尽" : count + "次阅读后将燃尽" }}】
+		</div>
+		<div v-else-if="status==0">
+		h6 啊喔😯，你查看的内容已经不见了...
+		p.tips 
+			span 这是因为这个网址已经
+			b 过期
+			span 或
+			b 被看过指定次数
+			span 了，过期或被看过一定次数的内容就会自动消失。
+			br
+			span 对，这就是人们常说的&nbsp;
+			b 阅后即焚！
+		a(href="/") 我也要生成一个！
+		</div>
+		<div v-else>
+		p#warning 正在获取...
+		</div>
+	//- 输出用于匹配GUID的正则表达式
+	script.
+		reg_guid =  !{locals.reg_guid};
+	script(src="/javascripts/read.js")

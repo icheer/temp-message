@@ -7,20 +7,36 @@ var RateLimit = require('express-rate-limit');
 
 // 限制生成临时链接API的访问次数
 var apiLimiter = new RateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: conf.rate_limit,    // 频次
-    delayMs: 0,               // disabled 延迟响应
+	windowMs: 60 * 1000, // 1 minute
+	max: conf.rate_limit,    // 频次(10)
+	delayMs: 0,               // disabled 延迟响应
 });
 
+const ONE_HOUR = 3600;
+const ONE_DAY = 86400;
+const exDict = ['5MIN', '15MIN', '1HOUR', '1DAY', '7DAY', '15DAY'];
+const exList = [5 * 60, 15 * 60, ONE_HOUR, ONE_DAY, 7 * ONE_DAY, 15 * ONE_DAY];
+
 /* 生成消息的GUID */
-router.post('/get-temp', apiLimiter, function(req, res, next) {
+router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	// 用户输出的内容
-	var text = req.body.text;
-	// 插入消息
-	mtool.insert(text, (status, guid) => {
-		rep = { status: status, guid: guid };
-		res.send(rep);
-	});
+	const output = { status: 0, guid: null };
+	let { text, count = 1, ex } = req.body;
+	text = decodeURIComponent(Buffer.from(text, 'base64').toString());
+	count = +count;
+	if (!count || !Number.isInteger(count) || count < 1 || count > 10) {
+		count = 1;
+	}
+	const exIdx = exDict.indexOf(ex);
+	if (exIdx === -1) {
+		res.send(output);
+		return;
+	}
+	ex = exList[exIdx];
+	const result = await mtool.insert({ text, count, ex });
+	output.status = result.status;
+	output.guid = result.guid;
+	res.send(output);
 });
 
 /**
@@ -29,21 +45,23 @@ router.post('/get-temp', apiLimiter, function(req, res, next) {
  * @param  {[type]} res) {	var        guid [description]
  * @return {[type]}      [description]
  */
-router.post('/get-msg', function(req, res) {
-	var guid = req.body.guid;
-	console.log("GUID", guid);
-	mtool.exists(guid, (exists) => {
-		var rep = {status: 0, text: null};
-		if (exists) {
-			mtool.get(guid, (text) => {
-				rep.status = 1; rep.text = text;
-				mtool.delete(guid);// 删除消息
-				res.send(rep);
-			});
-		} else {
-			res.send(rep);
-		}
-	});
+router.post('/read-msg', async (req, res) => {
+	const guid = req.body.guid;
+	const output = { status: 0, text: null, count: 0 };
+	const item = await mtool.get(guid);
+	if (!item) {
+		res.send(output);
+		return;
+	}
+	output.status = 1;
+	output.text = Buffer.from(encodeURIComponent(item.text)).toString('base64');
+	output.count = item.count;
+	if (!item.count || item.count <= 1) {
+		await mtool.delete(guid);
+	} else {
+		await mtool.setCount(guid, item.count - 1);
+	}
+	res.send(output);
 })
 
 module.exports = router;
