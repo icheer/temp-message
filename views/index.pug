@@ -4,23 +4,23 @@ block content
   <div id="app" v-cloak>
     <div class="row">
       <div class="col-md-10 col-xs-12 col-sm-12">
+        <p class="lead">无需注册的阅后即焚服务</p>
         <p>
-          <p class="lead">无需注册的阅后即焚服务</p>
         | 在下面的框框里输入一些内容<br>
-        | 然后点一下「生成」按钮，你就会得到一个长的网址<br>
+        | 然后点一下「生成纸条」按钮，你就会得到一个长的网址<br>
         | 将这个网址发给你的朋友，他只能看一次，内容就会<b>永远消失</b>！
         </p>
         <textarea v-model="text" rows="6" class="form-control" maxlength="1500" placeholder="想要说的话..."></textarea>
-        <div class="panel" style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; user-select: none;">
+        <div class="panel" style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; user-select: none;">
           <div class="group" style="display: flex; flex-wrap: nowrap;">
-            <label class="form-inline" style="flex: 0 1 auto; font-size: 13px;">
-              | 最大阅读次数(1-10)：
-              <select v-model="count" class="form-control input-xs" type="number" style="width: 4.5em; padding: 6px 12px;" @change="countChangeHandler()">
+            <label class="form-inline" style="flex: 0 1 6em; font-size: 13px;">
+              <span style="line-height: 1.75; white-space: nowrap;">最大阅读次数：</span>
+              <select v-model="count" class="form-control input-xs" type="number" style="width: 6em; padding: 6px 12px;" @change="countChangeHandler()">
                 <option v-for="i in 10" :value="i">{{i}}</option>
               </select>
             </label>
-            <label class="form-inline" style="flex: 0 1 auto; margin-left: 0.5em; font-size: 13px;">
-              | 有效期：
+            <label class="form-inline" style="flex: 0 1 6em; margin-left: 1em; font-size: 13px;">
+              <span style="line-height: 1.75; white-space: nowrap;">有效期：</span>
               <select v-model="ex" class="form-control input-xs" style="width: 6em; padding: 6px 12px;">
                 <option value="5MIN">5分钟</option>
                 <option value="15MIN">15分钟</option>
@@ -31,7 +31,7 @@ block content
               </select>
             </label>
           </div>
-          <button class="btn btn-primary getbtn" @click="getTempURL">生成</button>
+          <button class="btn btn-primary getbtn" @click="getTempURL">生成纸条</button>
         </div>
         
         <transition name="fade">
@@ -44,9 +44,9 @@ block content
         </transition>
         hr
         <p style="color: #999;">
-          | 这是一个简单的项目，可以一定程度保证你的信息安全。 <br>
-          | 举例：你有个链接或者一段文字需要发送给某人，<br>
-          | 但是通过QQ、WeChat这类被严密监控的服务去发送，有的时候会非常不安全，甚至会嗯嗯。<br><br>
+          | 这是一个简单的项目，可以一定程度保证你的信息安全<br>
+          | 举例：你有个链接或者一段文字需要发送给某人<br>
+          | 但是通过QQ、WeChat这类被严密监控的服务去发送，有的时候会非常不安全，甚至会嗯嗯<br><br>
           | 现在可以通过这样的一个方案得以解决<br>
           | 你将私密的链接或者文字粘贴到我们这个页面<br>
           | 产生一个一次性（或有时效性）的链接<br>

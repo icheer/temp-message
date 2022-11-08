@@ -1,5 +1,6 @@
 body {
-  padding-top: 73px;
+  padding-top: 80px;
+  padding-bottom: 25px;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
@@ -16,7 +17,10 @@ textarea {
 }
 
 .getbtn {
-  padding: 8px 30px;
+  padding: 8px 22px;
+  margin-left: 1em;
+  margin-top: 23px;
+  margin-bottom: 8px;
 }
 
 pre {
