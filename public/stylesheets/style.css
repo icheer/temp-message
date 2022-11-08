@@ -66,3 +66,10 @@ p.tips {
   margin-top: 9px;
   border-radius: 0.5;
 }
+
+#enurlInput {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+}

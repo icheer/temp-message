@@ -38,6 +38,8 @@ block content
           <p v-if="enurl">
             |可以把这个网址分享给你的朋友：
             <span id="enurl">{{ enurl }}</span>
+            <button id="enurlBtn" class="btn btn-default" data-clipboard-target="#enurlInput" @click="copyUrl()">复制</button>
+            <input :value="enurl" id="enurlInput" readonly />
           </p>
         </transition>
         hr

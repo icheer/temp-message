@@ -8,7 +8,7 @@ app = new Vue({
 	},
 	mounted: function () {
 		// 从URL获取GUID，然后透过POST获取消息
-		var guid = reg_guid.exec(window.location.href)[0];
+		var guid = reg_guid.exec(window.location.href.split('/').pop())[0];
 		axios.post('/api/read-msg', {
 			guid: guid
 		}).then(function (response) {

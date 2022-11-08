@@ -1,6 +1,6 @@
 {
-  "name": "naiveboom",
-  "version": "1.1.2",
+  "name": "temp-message",
+  "version": "0.0.1",
   "license": "MIT License",
   "private": true,
   "scripts": {
@@ -17,7 +17,6 @@
     "pug": "latest",
     "redis": "^3.0.0",
     "serve-favicon": "~2.4.5",
-    "util": "^0.10.3",
-    "uuid": "^3.2.1"
+    "util": "^0.10.3"
   }
 }
