@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-rate-limit": "^2.11.0",
+    "isbot": "^3.6.3",
     "morgan": "~1.9.0",
     "pug": "latest",
     "redis": "^3.0.0",

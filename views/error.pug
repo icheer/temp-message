@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  h3 出现了一些情况，页面发生错误了。
-  pre #{error.stack}
+  h1= error.status
+  h2= message
+  h3 你要找的页面不存在。
+  -if(error.status!==404)
+    pre #{error.stack}

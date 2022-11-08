@@ -4,7 +4,7 @@ block content
 		<div v-cloak v-if="status==1">
 		pre
 			span {{ text }}
-			div(style="margin-top: 1em; color: darkred") 【{{ count === 0 ? "已燃尽" : count + "次阅读后将燃尽" }}】
+			div(style="margin-top: 1em; color: darkred") 【{{ count === 0 ? '纸条已燃尽' : '纸条将在' + count + "次阅读后燃尽" }} 🪔】
 		</div>
 		<div v-else-if="status==0">
 		h6 啊喔😯，你查看的内容已经不见了...
@@ -25,4 +25,4 @@ block content
 	//- 输出用于匹配GUID的正则表达式
 	script.
 		reg_guid =  !{locals.reg_guid};
-	script(src="/javascripts/read.js")
+	script(src="/js/read.js?v=1108")
