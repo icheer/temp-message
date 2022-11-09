@@ -41,7 +41,7 @@ app = new Vue({
 	},
 	methods: {
 		decode: function (str = '') {
-			let text = '';
+			var text = '';
 			try {
 				text = window.atob(str);
 				text = text.replace(/;/g, '%').split('').reverse().join('');
@@ -50,6 +50,22 @@ app = new Vue({
 				text = '';
 			}
 			return text;
+		},
+		mdClickHandler(e) {
+			var target = e.target;
+			var tagName = target.tagName;
+			if (tagName === 'IMG') {
+				if (target.parentElement.tagName === 'A') {
+					target = target.parentElement;
+					tagName = 'A';
+				}
+			}
+			if (tagName === 'A') {
+				var href = target.getAttribute('href');
+				if (!href) return;
+				e.preventDefault();
+				window.open(href);
+			}
 		}
 	}
 });
