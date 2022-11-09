@@ -47,7 +47,7 @@ app = new Vue({
 				}
 			});
 			axios.post('/api/create-msg', {
-				text: window.btoa(encodeURIComponent(text)),
+				text: app.encode(text),
 				count,
 				ex
 			}).then(function (response) {
@@ -71,6 +71,12 @@ app = new Vue({
 		},
 		copyUrl: function () {
 			modal.show('已复制到剪贴板<br>', '成功');
+		},
+		encode: function (text = '') {
+			let str = encodeURIComponent(text);
+			str = str.replace(/%/g, ';').split('').reverse().join('');
+			str = window.btoa(str);
+			return str;
 		}
 	}
 })

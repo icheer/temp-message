@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var conf = require('../config.js');
-var mtool = new (require('../lib/tools.js'))(conf);// 消息操作工具
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -15,7 +14,7 @@ router.get('/', function (req, res, next) {
  * @return {[type]}      [description]
  */
 router.get(conf.reg_guid, function (req, res) {
-  res.render('read', { title: '燃尽小纸条 - 查看内容', reg_guid: conf.reg_guid });
-})
+  res.render('read', { title: '查看纸条内容', reg_guid: conf.reg_guid });
+});
 
 module.exports = router;

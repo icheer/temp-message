@@ -22,7 +22,7 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	// 用户输出的内容
 	const output = { status: 0, guid: null };
 	let { text, count = 1, ex } = req.body;
-	text = decodeURIComponent(Buffer.from(text, 'base64').toString());
+	text = mtool.decode(text);
 	if (text.length > 1500) {
 		text = text.slice(0, 1500);
 	}
@@ -57,7 +57,7 @@ router.post('/read-msg', async (req, res) => {
 		return;
 	}
 	output.status = 1;
-	output.text = Buffer.from(encodeURIComponent(item.text)).toString('base64');
+	output.text = mtool.encode(item.text);
 	output.count = item.count;
 	if (!item.count || item.count <= 1) {
 		await mtool.delete(guid);

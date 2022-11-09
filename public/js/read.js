@@ -16,12 +16,25 @@ app = new Vue({
 		}).then(function (response) {
 			var data = response.data;
 			app.status = data.status;
-			app.text = decodeURIComponent(window.atob(data.text));
+			app.text = app.decode(data.text);
 			app.count = data.count - 1;
 			if (app.count < 0) app.count = 0;
 		}).catch(function (error) {
 			alert('发生错误！')
 			throw error;
 		});
+	},
+	methods: {
+		decode: function (str = '') {
+			let text = '';
+			try {
+				text = window.atob(str);
+				text = text.replace(/;/g, '%').split('').reverse().join('');
+				text = decodeURIComponent(text);
+			} catch (e) {
+				text = '';
+			}
+			return text;
+		}
 	}
 });

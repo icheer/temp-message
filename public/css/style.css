@@ -12,6 +12,11 @@ body {
   color: #ddd !important;
 }
 
+.navbar {
+  padding-top: 9px !important;
+  padding-bottom: 7px !important;
+}
+
 textarea {
   min-height: 2.4em;
 }
