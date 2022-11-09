@@ -1,10 +1,12 @@
 extends layout
 block content
+	link(rel="stylesheet", href="/css/markdown.css")
+	script(src="/js/showdown.min.js")
 	#app
 		<div v-cloak v-if="status==1">
-		pre
-			span {{ text }}
-			div(style="margin-top: 1em; color: darkred") 【{{ count === 0 ? '纸条已燃尽' : '纸条将在' + count + "次阅读后燃尽" }} 🪔】
+		.markdown-body
+			div(v-html="mdConverter.makeHtml(text)")
+			div(style="margin-top: 1.5em; color: darkred") 【{{ count === 0 ? '纸条已燃尽' : '纸条将在' + count + "次阅读后燃尽" }} 🪔】
 		</div>
 		<div v-else-if="status==0">
 		h6 啊喔😯，你查看的内容已经不见了...
@@ -25,4 +27,4 @@ block content
 	//- 输出用于匹配GUID的正则表达式
 	script.
 		reg_guid =  !{locals.reg_guid};
-	script(src="/js/read.js?v=1108")
+	script(src="/js/read.js?v=1109.1248")

@@ -1,3 +1,13 @@
+// markdown相关
+var mdConverter = new showdown.Converter();
+mdConverter.setOption('simpleLineBreaks', true);
+mdConverter.setOption('simplifiedAutoLink', true);
+mdConverter.setOption('excludeTrailingPunctuationFromURLs', true);
+mdConverter.setOption('literalMidWordUnderscores', true);
+mdConverter.setOption('strikethrough', true);
+mdConverter.setOption('tasklists', true);
+mdConverter.setOption('tables', true);
+
 // 查看消息需要用到的JS
 app = new Vue({
 	el: '#app',
@@ -5,6 +15,11 @@ app = new Vue({
 		status: -1,
 		text: null,
 		count: null
+	},
+	computed: {
+		mdConverter: function () {
+			return mdConverter;
+		}
 	},
 	mounted: function () {
 		// 从URL获取GUID，然后透过POST获取消息
