@@ -28,7 +28,7 @@ textarea {
   margin-bottom: 8px;
 }
 
-pre {
+.pre {
   letter-spacing: 0.12em;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -41,6 +41,10 @@ footer a {
 }
 footer {
   margin-bottom: 10px;
+}
+
+p {
+  line-height: 1.5;
 }
 
 p.tips {

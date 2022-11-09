@@ -30,10 +30,10 @@ app = new Vue({
 			guid: guid
 		}).then(function (response) {
 			var data = response.data;
-			app.status = data.status;
 			app.text = app.decode(data.text);
 			app.count = data.count - 1;
 			if (app.count < 0) app.count = 0;
+			app.status = data.status;
 		}).catch(function (error) {
 			alert('发生错误！')
 			throw error;
