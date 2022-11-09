@@ -57,7 +57,7 @@ function blockBots(req, res, next) {
   const shouldBlock = isbot(ua);
   if (shouldBlock) {
     console.log(`UA blocked: ${ua}`);
-    res.status(403).send('You are not allowed to access this site');
+    res.status(502).send('502 Bad Gateway | nginx 1.20.1');
     return;
   }
   next();
