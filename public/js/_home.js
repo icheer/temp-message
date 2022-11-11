@@ -19,10 +19,15 @@ modal = new Vue({
 app = new Vue({
 	el: '#app',
 	data: {
-		text: null,
+		text: '',
 		count: 1,
 		ex: '1DAY',
 		enurl: null
+	},
+	mounted: function () {
+		setTimeout(function () {
+			document.querySelector('textarea.form-control').dispatchEvent(new Event('input'));
+		}, 100);
 	},
 	methods: {
 		countChangeHandler() {
@@ -46,13 +51,20 @@ app = new Vue({
 					loading.overlay.fadeOut(650)
 				}
 			});
-			axios.post('/api/create-msg', {
-				text: app.encode(text),
-				count,
-				ex
-			}).then(function (response) {
+			window.fetch('/api/create-msg', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8'
+				},
+				body: JSON.stringify({
+					text: app.encode(text),
+					count,
+					ex
+				})
+			}).then(function (res) {
+				return res.json();
+			}).then(function (data) {
 				$("#enurl").loading('stop');
-				var data = response.data;
 				if (data.status === 1) {
 					var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
 					app.enurl = newURL + data.guid;
@@ -64,9 +76,9 @@ app = new Vue({
 					throw 'failure to get the tmp url!';
 				}
 			}).catch(function (error) {
-				console.warn(error.response);
+				console.warn(error);
 				$("#enurl").loading('stop');
-				modal.show("操作失败！<br>" + error.response.data.message, '错误')
+				modal.show("操作失败！<br>" + error.message, '错误')
 			})
 		},
 		copyUrl: function () {

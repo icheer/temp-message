@@ -6,11 +6,17 @@ block content
       <div class="col-md-10 col-xs-12 col-sm-12">
         <p class="lead">无需注册的阅后即焚服务</p>
         <p>
-        | 在下面的框框里输入一些内容<br>
-        | 然后点一下「生成纸条」按钮，你就会得到一个长的网址<br>
-        | 将这个网址发给你的朋友，他只能看一次，内容就会<b>永远消失</b>！
+          span 在下面的框框里输入一些内容
+          span(style="opacity: 0.3")
+            span （支持Markdown语法&nbsp;和&nbsp;
+            a(href="https://imgse.com/" target="_blank" referrerpolicy="no-referrer") 图片上传
+            span ）
+          br
+          span 然后点一下「生成纸条」按钮，你就会得到一个长的网址
+          br
+          span 将这个网址发给你的朋友，他只能看一次，内容就会<b>永远消失</b>！
         </p>
-        <textarea v-model="text" rows="6" class="form-control" maxlength="1500" placeholder="想要说的话...（支持Markdown语法）"></textarea>
+        <textarea v-model="text" rows="6" class="form-control" maxlength="1500" placeholder="想要说的话..."></textarea>
         <div class="panel" style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; user-select: none;">
           <div class="group" style="display: flex; flex-wrap: nowrap;">
             <label class="form-inline" style="flex: 0 1 6em; font-size: 13px;">
@@ -51,8 +57,7 @@ block content
           | 你将私密的链接或者文字粘贴到我们这个页面<br>
           | 产生一个一次性（或有时效性）的链接<br>
           | 阅后即焚<br>
-          | 嗯，这回你不会嗯嗯了（确信<br><br>
-          <a href="https://imgse.com/" target="_blank" style="opacity: 0.4">上传图片</a>
+          | 嗯，这回你不会嗯嗯了（确信<br>
         </p>
       </div>
     </div>
@@ -77,4 +82,4 @@ block content
       </div>
     </div>
   </div>
-  script(src="/js/_home.js?v=1109.1248")
+  script(src="/js/_home.js?v=1111.1232")

@@ -26,10 +26,15 @@ app = new Vue({
 		var guid = reg_guid.exec(window.location.pathname);
 		if (!guid) return;
 		guid = guid[0].replace(/^\//, '');
-		axios.post('/api/read-msg', {
-			guid: guid
-		}).then(function (response) {
-			var data = response.data;
+		window.fetch('/api/read-msg', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8'
+			},
+			body: JSON.stringify({ guid: guid })
+		}).then(function (res) {
+			return res.json();
+		}).then(function (data) {
 			app.text = app.decode(data.text);
 			app.count = data.count - 1;
 			if (app.count < 0) app.count = 0;
