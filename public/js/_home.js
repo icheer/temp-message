@@ -1,8 +1,8 @@
 modal = new Vue({
 	el: '#modal',
 	data: {
-		msg: '么有',
-		title: '提示'
+		msg: '',
+		title: ''
 	},
 	methods: {
 		show: function (msg, title) {
