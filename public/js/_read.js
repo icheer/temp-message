@@ -63,13 +63,16 @@ app = new Vue({
 				if (target.parentElement.tagName === 'A') {
 					target = target.parentElement;
 					tagName = 'A';
+				} else {
+					var src = target.getAttribute('src');
+					e.preventDefault();
+					src && window.open(src);
 				}
 			}
 			if (tagName === 'A') {
 				var href = target.getAttribute('href');
-				if (!href) return;
 				e.preventDefault();
-				window.open(href);
+				href && window.open(href);
 			}
 		}
 	}
