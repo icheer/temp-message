@@ -62,9 +62,12 @@ app = new Vue({
 					ex
 				})
 			}).then(function (res) {
-				return res.json();
+				if (res.status === 200) return res.json();
+				return res.text().then(txt => {
+					return { status: -1, msg: txt };
+				});
 			}).then(function (data) {
-				$("#enurl").loading('stop');
+				$('#enurl').loading('stop');
 				if (data.status === 1) {
 					var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
 					app.enurl = newURL + data.guid;
@@ -72,14 +75,10 @@ app = new Vue({
 						new ClipboardJS('#enurlBtn');
 					}, 0);
 				} else {
-					modal.show("操作失败！<br>", '错误');
+					modal.show(`操作失败！<br>${data.msg || ''}`, '错误');
 					throw 'failure to get the tmp url!';
 				}
-			}).catch(function (error) {
-				console.warn(error);
-				$("#enurl").loading('stop');
-				modal.show("操作失败！<br>" + error.message, '错误')
-			})
+			});
 		},
 		copyUrl: function () {
 			modal.show('已复制到剪贴板<br>', '成功');

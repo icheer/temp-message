@@ -86,3 +86,7 @@ p.tips {
   height: 12px;
   opacity: 0;
 }
+
+.modal-body {
+  line-height: 1.75;
+}
