@@ -7,7 +7,9 @@ block content
 			<div v-if="status === 1">
 			.markdown-body.pre
 				div(v-html="mdConverter.makeHtml(text)" @click="mdClickHandler")
-				div(style="margin-top: 1.5em; color: darkred") 【{{ count === 0 ? '纸条已燃尽' : '纸条将在' + count + "次阅读后燃尽" }} 🪔】
+				div(style="margin-top: 1.5em; color: darkred")
+					span(v-if="count === 0") 【纸条已燃尽 🪔】
+					span(v-else) 【纸条将在{{ count }}次阅读（或{{ ex }}秒）后燃尽 🪔】
 			</div>
 		</transition>
 
@@ -33,4 +35,4 @@ block content
 	//- 输出用于匹配GUID的正则表达式
 	script.
 		reg_guid = !{locals.reg_guid};
-	script(src="/js/_read.js?v=1114.1006")
+	script(src="/js/_read.js?v=1227")

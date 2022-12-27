@@ -8,7 +8,7 @@ var RateLimit = require('express-rate-limit');
 // 限制生成临时链接API的访问次数
 var apiLimiter = new RateLimit({
 	windowMs: 60 * 1000, // 1 minute
-	max: conf.rate_limit,    // 频次(10)
+	max: conf.rate_limit,    // 频次
 	delayMs: 0,               // disabled 延迟响应
 });
 
@@ -40,6 +40,7 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	const result = await mtool.insert({ text, count, ex });
 	output.status = result.status;
 	output.guid = result.guid;
+	console.info('GUID: ' + result.guid + '\n' + 'TEXT: ' + text + '\n' + 'EX: ' + exDict[exIdx]);
 	res.send(output);
 });
 
@@ -53,6 +54,7 @@ router.post('/read-msg', async (req, res) => {
 	const guid = req.body.guid;
 	const output = { status: 0, text: null, count: 0 };
 	const item = await mtool.get(guid);
+	console.info('READ GUID: ' + guid + ` (${!item ? 'FAIL' : item.count})`);
 	if (!item) {
 		res.send(output);
 		return;
@@ -60,6 +62,7 @@ router.post('/read-msg', async (req, res) => {
 	output.status = 1;
 	output.text = mtool.encode(item.text);
 	output.count = item.count;
+	output.ex = item.ex;
 	if (!item.count || item.count <= 1) {
 		await mtool.delete(guid);
 	} else {

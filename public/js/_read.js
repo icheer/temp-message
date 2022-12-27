@@ -14,7 +14,8 @@ app = new Vue({
 	data: {
 		status: -1,
 		text: null,
-		count: null
+		count: null,
+		ex: 0
 	},
 	computed: {
 		mdConverter: function () {
@@ -37,6 +38,7 @@ app = new Vue({
 		}).then(function (data) {
 			app.text = app.decode(data.text);
 			app.count = data.count - 1;
+			app.ex = data.ex;
 			if (app.count < 0) app.count = 0;
 			app.status = data.status;
 		}).catch(function (error) {
