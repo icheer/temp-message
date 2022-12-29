@@ -40,7 +40,6 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	const result = await mtool.insert({ text, count, ex });
 	output.status = result.status;
 	output.guid = result.guid;
-	console.info('GUID: ' + result.guid + '\n' + 'TEXT: ' + text + '\n' + 'EX: ' + exDict[exIdx]);
 	res.send(output);
 });
 
@@ -54,7 +53,6 @@ router.post('/read-msg', async (req, res) => {
 	const guid = req.body.guid;
 	const output = { status: 0, text: null, count: 0 };
 	const item = await mtool.get(guid);
-	console.info('READ GUID: ' + guid + ` (${!item ? 'FAIL' : item.count})`);
 	if (!item) {
 		res.send(output);
 		return;
