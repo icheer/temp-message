@@ -28,7 +28,7 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 		text = text.slice(0, 1500);
 	}
 	count = +count;
-	if (!count || !Number.isInteger(count) || count < 1 || count > 10) {
+	if (!count || !Number.isInteger(count) || count < 1 || count > 15) {
 		count = 1;
 	}
 	const exIdx = exDict.indexOf(ex);

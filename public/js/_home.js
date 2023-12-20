@@ -35,15 +35,15 @@ app = new Vue({
 			if (!num || num < 1) {
 				app.count = 1;
 			}
-			if (num > 10) {
-				app.count = 10;
+			if (num > 15) {
+				app.count = 15;
 			}
 		},
 		getTempURL: function () {
 			let { text, count, ex } = app;
 			text = (text || '').trim();
 			if (!text) return alert('请输入想说的话');
-			if (count < 1 || count > 10) return alert('查看次数');
+			if (count < 1 || count > 15) return alert('查看次数');
 			if (!ex) return alert('失效时间');
 			$("#enurl").loading({
 				message: '加载中...',

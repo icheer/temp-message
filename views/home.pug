@@ -27,7 +27,13 @@ block content
             <label class="form-inline" style="flex: 0 1 6em; font-size: 13px;">
               <span style="line-height: 1.75; white-space: nowrap;">最大阅读次数：</span>
               <select v-model="count" class="form-control input-xs" type="number" style="width: 6em; padding: 6px 12px;" @change="countChangeHandler()">
-                <option v-for="i in 10" :value="i">{{i}}</option>
+                <option :value="1">1</option>
+                <option :value="2">2</option>
+                <option :value="3">3</option>
+                <option :value="5">5</option>
+                <option :value="8">8</option>
+                <option :value="10">10</option>
+                <option :value="15">15</option>
               </select>
             </label>
             <label class="form-inline" style="flex: 0 1 6em; margin-left: 1em; font-size: 13px;">
