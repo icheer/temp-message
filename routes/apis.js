@@ -24,8 +24,8 @@ router.post('/create-msg', apiLimiter, async (req, res, next) => {
 	let { text, count = 1, ex } = req.body;
 	text = mtool.decode(text);
 	text = text.replace(/\</g, '&lt;'); // 由于支持了markdown,这里简单XSS过滤一下,废掉所有用户自行输入的小于号(HTML标签)
-	if (text.length > 1500) {
-		text = text.slice(0, 1500);
+	if (text.length > 5000) {
+		text = text.slice(0, 5000);
 	}
 	count = +count;
 	if (!count || !Number.isInteger(count) || count < 1 || count > 15) {
